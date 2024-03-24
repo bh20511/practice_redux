@@ -20,8 +20,8 @@ const App = () => {
 
   // 上面代表資料已經被放到 foodsList 中，但我們還要從倉庫拿到這個狀態
   // 1. 使用 useSelector
-  const { foodsList } = useSelector((state) => state.foods);
-  console.log(foodsList);
+  const { foodsList, activeIndex } = useSelector((state) => state.foods);
+  console.log("食物列表", foodsList);
 
   return (
     <div className="home">
@@ -36,15 +36,17 @@ const App = () => {
           <div className="list-content">
             <div className="goods-list">
               {/* 商品列表 */}
-              {foodsList.map((item) => {
+              {foodsList.map((item, index) => {
                 return (
-                  <FoodsCategory
-                    key={item.tag}
-                    // 標題列表
-                    name={item.name}
-                    // 商品列表
-                    foods={item.foods}
-                  />
+                  activeIndex === index && (
+                    <FoodsCategory
+                      key={item.tag}
+                      // 標題列表
+                      name={item.name}
+                      // 商品列表
+                      foods={item.foods}
+                    />
+                  )
                 );
               })}
             </div>
